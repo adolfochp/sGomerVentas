@@ -1,0 +1,99 @@
+@extends('adminlte::page')
+
+@section('title', 'Proveedor')
+
+@section('content_header')
+   
+    <h1>Crear Proveedor</h1>
+@stop
+
+@section('content')
+    <div class="card ">
+        <div class="card-body">
+            <form action="{{ route('admin.proveedors.store') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="razon_social">Nombre Proveedor: </label>
+                    <input type="text" name="razon_social" id="razon_social" value="{{ old('razon_social') }}"
+                        class="form-control" tabindex="1" autofocus>
+                    @if ($errors->has('razon_social'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('razon_social') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="nit">Nº Nit: </label>
+                    <input type="number" name="nit" id="nit" min="0" value="{{ old('nit') }}" class="form-control"
+                        tabindex="2" onkeypress="return esNumero(event)">
+                    @if ($errors->has('nit'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('nit') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control"
+                        tabindex="3" placeholder="ejemplo@gmail.com">
+                    @if ($errors->has('email'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('email') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección: </label>
+                    <textarea name="direccion" id="direccion" class="form-control" tabindex="4"
+                        placeholder="Dirección 255 caracteres">{{ old('direccion') }}</textarea>
+                    @if ($errors->has('direccion'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('direccion') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono: </label>
+                    <input type="text" name="telefono" id="telefono" value="{{ old('telefono') }}" class="form-control"
+                        tabindex="5" onkeypress="return esNumero(event)">
+                    @if ($errors->has('telefono'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('telefono') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="celular">Celular: </label>
+                    <input type="text" name="celular" id="celular" value="{{ old('celular') }}" class="form-control"
+                        tabindex="6">
+                    @if ($errors->has('celular'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('celular') }}</span>
+                        </div>
+                    @endif
+                </div>
+                <button type="submit" class="btn btn-success" tabindex="7">Guardar </button>
+                <a href="{{ route('admin.proveedors.index') }}" class="btn btn-secondary ml-2" tabindex="8">Cancelar</a>
+            </form>
+        </div>
+    </div>
+   
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+@stop
+
+@section('js')
+    <script>
+        function esNumero(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (charCode < 31 || (charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105))
+                return true;
+            return false;
+        }
+    </script>
+
+@stop
